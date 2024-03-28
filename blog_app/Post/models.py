@@ -14,13 +14,18 @@ class Post(models.Model):
     -- note update content
     """
 
-    title = models.CharField(null=True, blank=True, max_length=50)
-    content = models.CharField(null=False, blank=False, max_length=255)
-    author = models.CharField(null=False, blank=False, max_length=50)
+    title = models.CharField(null=False, blank=False, max_length=50)
+    content = models.CharField(null=True, blank=True, max_length=255)
+    author = models.CharField(null=True, blank=True, max_length=50)
     publication_date = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
     tag = models.CharField(null=True, blank=True, max_length=50)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name="profile"
+    )
+
+    class Meta:
+        ordering = ["-publication_date"]
 
     def __str__(self) -> str | None:
         return self.title

@@ -4,4 +4,7 @@ from . import views
 
 # url ( endpoints ) goes here
 
-urlpatterns = []
+router = DefaultRouter()
+router.register("", views.PostViewset)
+
+urlpatterns = router.urls
