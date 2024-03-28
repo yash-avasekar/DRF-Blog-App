@@ -17,3 +17,9 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_text = models.TextField()
     commented_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-commented_on"]
+
+    def __str__(self) -> str:
+        return self.comment_text
