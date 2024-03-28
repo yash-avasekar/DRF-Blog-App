@@ -17,7 +17,6 @@ Support pagination for listing posts.
 
 Allow users to comment on blog posts.
 Associate comments with specific posts.
-Implement moderation features (e.g., flagging inappropriate comments).
 
 #---------------------------------------------------------------------------------------------------
 # Categories and Tags:

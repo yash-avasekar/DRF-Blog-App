@@ -25,10 +25,10 @@ class UserViewsets(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs) -> Response:
         return utils.registerUser(self, request, models)
 
-    def update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs) -> Response:
         return Response("Method Not Allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    def destroy(self, request, *args, **kwargs):
+    def destroy(self, request, *args, **kwargs) -> Response:
         return Response("Method Not Allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     @action(detail=False, methods=["post"], permission_classes=[AllowAny])
@@ -59,7 +59,7 @@ class ProfileViewsets(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs) -> Response:
         return Response("Method Not Allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    def update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs) -> Response:
         return utils.upateProfile(self, request)
 
     def perform_destroy(self, instance):

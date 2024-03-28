@@ -11,9 +11,9 @@ class Profile(models.Model):
     - username ,password ,email ,joined on
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=50, unique=True, null=False, blank=False)
-    email = models.EmailField(unique=True, max_length=50, null=False, blank=False)
+    email = models.EmailField(unique=True, max_length=50, null=True, blank=False)
     name = models.CharField(max_length=50, null=False, blank=True)
     joined_on = models.DateTimeField(auto_now_add=True)
 
