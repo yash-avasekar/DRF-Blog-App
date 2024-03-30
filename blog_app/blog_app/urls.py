@@ -22,5 +22,5 @@ urlpatterns = [
     path("api/user/", include("Profile.urls")),
     path("api/posts/", include("Post.urls")),
     path("api/comments/", include("Comment.urls")),
-    # path("api/comments/", include("Comment.urls")),
+    path("api/app-admin-view/", include("admin_app.urls")),
 ]

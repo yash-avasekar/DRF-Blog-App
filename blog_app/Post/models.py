@@ -14,6 +14,7 @@ class Post(models.Model):
     -- note update content
     """
 
+    post_image = models.ImageField(upload_to="media/post-images/", null=True)
     title = models.CharField(null=False, blank=False, max_length=50)
     content = models.CharField(null=True, blank=True, max_length=255)
     author = models.CharField(null=True, blank=True, max_length=50)

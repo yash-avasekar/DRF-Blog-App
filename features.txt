@@ -1,35 +1,36 @@
 #---------------------------------------------------------------------------------------------------
 # User Authentication and Authorization:
 
-Implement user registration, login, and logout endpoints.
-Use token-based authentication or JWT (JSON Web Tokens) for secure API access.
-Restrict certain actions (e.g., editing posts) to authenticated users.
+Implement user registration, login, and logout endpoints.   --- done
+Use token-based authentication or JWT (JSON Web Tokens) for secure API access.  --- done
+Restrict certain actions (e.g., editing posts) to authenticated users.   --- done
 
 #---------------------------------------------------------------------------------------------------
 # Blog Posts:
 
-Create, read, update, and delete blog posts.
-Include fields like title, content, author, publication date, and tags.
-Support pagination for listing posts.
+Create, read, update, and delete blog posts.    --- done
+Include fields like title, content, author, publication date, and tags.     ---- done
+Support pagination for listing posts.       --- done
 
 #---------------------------------------------------------------------------------------------------
 # Comments:
 
-Allow users to comment on blog posts.
-Associate comments with specific posts.
+Allow users to comment on blog posts.       --- done
+Associate comments with specific posts.     --- done
 
 #---------------------------------------------------------------------------------------------------
 # Categories and Tags:
 
-Organize blog posts into categories (e.g., technology, lifestyle, travel).
-Add tags to posts for better content discovery.
-Enable filtering by category or tag.
+Add tags to posts for better content discovery.     --- done
+Enable filtering by category or tag.    --- done
 
 #---------------------------------------------------------------------------------------------------
 # Search and Filtering:
 
-Implement search functionality using full-text search or filters.
-Allow users to search for posts based on keywords or specific criteria (e.g., date range).
+Implement search functionality using full-text search or filters.       --- done
+Allow users to search for posts based on keywords or specific criteria (e.g., date range).      --- done
+
+#---------------------------------------------------------------------------------------------------
 # Rich Text Editor Integration:
 
 Use a WYSIWYG (What You See Is What You Get) editor for creating and editing post content.
@@ -38,20 +39,20 @@ Support Markdown or HTML formatting.
 #---------------------------------------------------------------------------------------------------
 # Image Uploads:
 
-Enable users to upload images for their blog posts.
-Store images securely and associate them with specific posts.
+Enable users to upload images for their blog posts.         --- done
+Store images securely and associate them with specific posts.          --- done
 
 #---------------------------------------------------------------------------------------------------
 # User Profiles:
 
-Create user profiles with additional information (e.g., bio, profile picture).
-Allow users to update their profiles.
+Create user profiles with additional information (e.g., bio, profile picture).      --- done
+Allow users to update their profiles.       --- done
 
 #---------------------------------------------------------------------------------------------------
 # Likes and Favorites:
 
-Implement a system for users to like or favorite blog posts.
-Display the number of likes or favorites for each post.
+Implement a system for users to like or favorite blog posts.        --- done
+Display the number of likes or favorites for each post.        --- done
 
 #---------------------------------------------------------------------------------------------------
 # RSS Feeds and Sitemaps:
@@ -68,14 +69,14 @@ Describe endpoints, request/response formats, and authentication methods.
 #---------------------------------------------------------------------------------------------------
 # Rate Limiting and Throttling:
 
-Prevent abuse by limiting the number of requests per user or IP address.
-Implement throttling to avoid overloading your server.
+Prevent abuse by limiting the number of requests per user or IP address.        --- done
+Implement throttling to avoid overloading your server.          --- done
 
 #---------------------------------------------------------------------------------------------------
 # Admin Panel:
 
-Customize the Django admin panel for managing blog posts, users, and other data.
-Ensure that only authorized users can access the admin interface.
+Customize the Django admin panel for managing blog posts, users, and other data.        ---
+Ensure that only authorized users can access the admin interface.       ---
 
 #---------------------------------------------------------------------------------------------------
 # Testing and Test Coverage:

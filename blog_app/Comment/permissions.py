@@ -3,7 +3,8 @@ from rest_framework import permissions
 
 class IsOwnerOfCommentOrOwnerOfPostOrReadOnly(permissions.BasePermission):
     """
-    Custom permission to allow owners of a comment or owners of the associated post to delete comments.
+    Comment Owner edit
+    Post Owner can delete
     """
 
     def has_object_permission(self, request, view, obj):

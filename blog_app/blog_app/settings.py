@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-c1pu6=#+k+9n(b+o1hax0z5_yh3g353ly7zt&^uhhm(ag43+3)"
+# SECRET_KEY = "django-insecure-c1pu6=#+k+9n(b+o1hax0z5_yh3g353ly7zt&^uhhm(ag43+3)"
+SECRET_KEY = os.environ.get("SECRET_KEY", "NA")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,6 +36,7 @@ INSTALLED_APPS = [
     "Post",
     "Comment",
     "Profile",
+    "admin_app",
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",

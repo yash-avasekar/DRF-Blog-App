@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, OR, IsAdminUser
 
 from . import models
 from . import serializers
@@ -19,7 +19,9 @@ class PostViewset(viewsets.ModelViewSet):
 
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    filterset_fields = ["tag"]
+    search_fields = ["title"]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -49,5 +51,5 @@ class PostViewset(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(profile=request.user.profile)
+        serializer.save(profile=request.user.profile, post=self.get_object())
         return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -22,6 +22,9 @@ class UserViewsets(viewsets.ModelViewSet):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
+    # def get_queryset(self):
+    #     return models.Profile.objects.filter(user=self.request.user)
+
     def create(self, request, *args, **kwargs) -> Response:
         return utils.registerUser(self, request, models)
 
@@ -37,8 +40,7 @@ class UserViewsets(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def logout(self, request) -> Response:
-        logout(request)
-        return Response(status=status.HTTP_200_OK)
+        return utils.userLogout(request)
 
 
 # User Login
@@ -52,6 +54,7 @@ class ProfileViewsets(viewsets.ModelViewSet):
     """
 
     serializer_class = serializers.ProfileSerializer
+    lookup_field = "username"
 
     def get_queryset(self):
         return models.Profile.objects.filter(user=self.request.user)

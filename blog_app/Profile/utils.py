@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from rest_framework.authtoken.models import Token
 
 
 def registerUser(self, request, models):
@@ -32,8 +33,15 @@ def userLogin(request):
 
     if user:
         login(request, user)
-        return Response(status=status.HTTP_200_OK)
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({"Token": f"Token {token.key}"}, status=status.HTTP_200_OK)
     return Response("Invalide Username or Password", status=status.HTTP_400_BAD_REQUEST)
+
+
+def userLogout(request):
+    Token.objects.filter(user=request.user).delete()
+    logout(request)
+    return Response("Loggout Out", status=status.HTTP_200_OK)
 
 
 # -----------------------------------------------------------------------------------------------------
