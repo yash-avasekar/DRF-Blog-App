@@ -21,9 +21,7 @@ class Post(models.Model):
     publication_date = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
     tag = models.CharField(null=True, blank=True, max_length=50)
-    profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name="profile"
-    )
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="Post")
 
     class Meta:
         ordering = ["-publication_date"]

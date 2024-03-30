@@ -17,6 +17,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 # Profile Serializer
 class ProfileSerializer(serializers.ModelSerializer):
+    posts_count = serializers.SerializerMethodField()
+
     class Meta:
         model = models.Profile
         fields = "__all__"
@@ -30,3 +32,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Username must be all lowercase.")
 
         return value
+
+    def get_posts_count(self, instance):
+        return instance.Post.count()

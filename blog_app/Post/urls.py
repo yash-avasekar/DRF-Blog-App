@@ -7,4 +7,5 @@ from . import views
 router = DefaultRouter()
 router.register("", views.PostViewset)
 
+
 urlpatterns = router.urls

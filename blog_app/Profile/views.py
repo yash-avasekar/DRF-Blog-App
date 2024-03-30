@@ -1,12 +1,14 @@
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny
-from django.contrib.auth import logout
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from . import models
 from . import serializers
 from . import utils
+from .permissions import IsOwnerOrReadOnly
+from Post.models import Post
+from Post.serializers import PostSerializer
 
 # Create your views here.
 
@@ -21,9 +23,6 @@ class UserViewsets(viewsets.ModelViewSet):
 
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
-
-    # def get_queryset(self):
-    #     return models.Profile.objects.filter(user=self.request.user)
 
     def create(self, request, *args, **kwargs) -> Response:
         return utils.registerUser(self, request, models)
@@ -43,9 +42,6 @@ class UserViewsets(viewsets.ModelViewSet):
         return utils.userLogout(request)
 
 
-# User Login
-
-
 # Profile Viewsets
 class ProfileViewsets(viewsets.ModelViewSet):
     """
@@ -53,11 +49,11 @@ class ProfileViewsets(viewsets.ModelViewSet):
     - List ,Update ,Delete
     """
 
+    queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
     lookup_field = "username"
-
-    def get_queryset(self):
-        return models.Profile.objects.filter(user=self.request.user)
+    search_fields = ["username", "name"]
 
     def create(self, request, *args, **kwargs) -> Response:
         return Response("Method Not Allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -68,3 +64,14 @@ class ProfileViewsets(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         instance.user.delete()
         instance.delete()
+
+    @action(
+        detail=True,
+        methods=["get"],
+        serializer_class=PostSerializer,
+        permission_classes=[IsOwnerOrReadOnly, IsAuthenticated],
+        search_fields=None,
+    )
+    def posts(self, request, username=None):
+        posts = Post.objects.filter(profile=self.get_object())
+        return Response(self.get_serializer(posts, many=True).data)

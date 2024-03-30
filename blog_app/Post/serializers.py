@@ -19,6 +19,7 @@ class LikeSerializer(serializers.ModelSerializer):
 # Post Serializer
 class PostSerializer(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField()
+    url = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Post
@@ -30,3 +31,11 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_likes(self, instance):
         return instance.like_set.count()
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        if request is not None:
+            return request.build_absolute_uri(
+                f"/api/posts/{obj.id}/"
+            )  # Assuming '/posts/' is the base URL for posts
+        return ""
