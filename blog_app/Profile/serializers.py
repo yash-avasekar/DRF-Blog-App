@@ -1,9 +1,12 @@
 import re
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 from . import models
 
 # Serializers goes here
+
+User = get_user_model()
 
 
 # User Serializer
@@ -26,30 +29,30 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate_username(self, value):
-        if " " in value:
-            raise serializers.ValidationError("Username cannot contain spaces.")
+        """
+        Validate the username field using Django's default username validators.
+        """
 
-        if not value.islower():
-            raise serializers.ValidationError("Username must be all lowercase.")
-
+        User._meta.get_field("username").clean(
+            value, None
+        )  # Use the default username validator
         return value
 
     def validate_email(self, value):
         """
-        Validate the email field.
+        Validate the email field using Django's default email validators.
         """
-        # Regular expression pattern to match the email format
-        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 
-        if value:
-            # Check if the email matches the pattern
-            if not re.match(pattern, value):
-                raise serializers.ValidationError("Invalid email format")
-            # Return the validated value
-            return value
-        raise serializers.ValidationError("Email cannot be null")
+        User._meta.get_field("email").clean(
+            value, None
+        )  # Use the default email validator
+        return value
 
     def get_url(self, obj):
+        """
+        Get URL for profile routing
+        """
+
         request = self.context.get("request")
         if request is not None:
             return request.build_absolute_uri(
@@ -58,4 +61,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return ""
 
     def get_posts_count(self, instance):
+        """
+        Get the total no. of posts count of a profile
+        """
         return instance.Post.count()
