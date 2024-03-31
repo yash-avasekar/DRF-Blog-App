@@ -1,5 +1,6 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from . import models
 from . import serializers
@@ -17,7 +18,7 @@ class CommentViewsets(viewsets.ModelViewSet):
 
     queryset = models.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
-    permission_classes = [IsOwnerOfCommentOrOwnerOfPostOrReadOnly]
+    permission_classes = [IsOwnerOfCommentOrOwnerOfPostOrReadOnly, IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
