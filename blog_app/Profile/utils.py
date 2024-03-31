@@ -52,12 +52,12 @@ def userLogout(request):
 def upateProfile(self, request):
     instance = self.get_object()
     serializer = self.get_serializer(instance, data=request.data, partial=True)
-    serializer.is_valid(raise_exception=True)
-    self.perform_update(serializer)
-
-    user = instance.user
-    user.username = instance.username
-    user.email = instance.email
-    user.name = instance.name
-    user.save()
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    if serializer.is_valid():
+        user = serializer.validated_data.get("user")
+        user.username = serializer.validated_data.get("username")
+        user.email = serializer.validated_data.get("email")
+        user.name = serializer.validated_data.get("name")
+        user.save()
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

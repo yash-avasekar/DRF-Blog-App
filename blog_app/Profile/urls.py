@@ -6,7 +6,7 @@ from . import views
 # urls ( endpoints ) goes here
 
 router = DefaultRouter()
-router.register("profile", views.ProfileViewsets, basename="profile")
+router.register("profiles", views.ProfileViewsets, basename="profiles")
 router.register("user", views.UserViewsets, basename="user")
 
 urlpatterns = router.urls
